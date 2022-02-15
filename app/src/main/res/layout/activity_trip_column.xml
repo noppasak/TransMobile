@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="0,1"
+    android:shrinkColumns="*"
+    android:weightSum="1.0" >
+
+    <TextView
+        android:id="@+id/ColLT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="LT."
+        android:layout_weight="0.4"/>
+
+    <Button
+        android:id="@+id/CmdDepart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        />
+
+    <Button
+        android:id="@+id/CmdArrive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        />
+
+
+</LinearLayout>

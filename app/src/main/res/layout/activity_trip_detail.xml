@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/lblsource1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ต้นทาง" />
+    <TextView
+        android:id="@+id/lblsource"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+    <TextView
+        android:id="@+id/lbldest1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ปลายทาง" />
+    <TextView
+        android:id="@+id/lbldest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03" />
+    <TextView
+        android:id="@+id/lbldistance1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ระยะทาง" />
+    <TextView
+        android:id="@+id/lbldestance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03" />
+    <TextView
+        android:id="@+id/lblfuel1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ปริมาณน้ำมันที่จะเติม (ลิตร)" />
+    <TextView
+        android:id="@+id/lblfuel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#F00"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:text="" />
+
+
+  <!--  <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05" />
+
+
+-->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="กลับไปหน้าจอแรก" />
+
+</LinearLayout>
