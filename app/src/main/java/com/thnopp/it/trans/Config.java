@@ -15,6 +15,8 @@ public class Config {
     public static final String UPDATE_VIN_REM_1 = "http://203.154.59.41:8080/cvl_trans/api/updatevin_1";
     public static final String UPDATE_RETROFIT = "http://203.154.59.41:8080/cvl_trans/api/retrofit/update";
 
+    public static final String GET_COUNTHD_URL = "http://203.154.59.41:8080/cvl_trans/api/count/getcounthd";
+
     // Directory name to store captured images and videos
     public static final String IMAGE_DIRECTORY_NAME = "Volvo Picture Upload";
     public static final String HEAD_KEY = "Authorization";
