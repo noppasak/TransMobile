@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/lblcountat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="รหัสรถ:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <TextView
+        android:id="@+id/lbluser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="รหัสรถ:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="รหัสรถ:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/lblparking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="รหัสรถ:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/lblparking_new"
+        android:layout_marginTop="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Parking slot:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+
+
+
+    <EditText
+        android:id="@+id/txtparking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Parking Slot"
+        />
+
+    <TextView
+        android:id="@+id/lblremark"
+        android:layout_marginTop="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="หมายเหตุ:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+    <EditText
+        android:id="@+id/txtremark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Remark" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="11dp"
+        android:text="Confirm Count" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="11dp"
+        android:text="ยกเลิก" />
+
+
+</LinearLayout>
+

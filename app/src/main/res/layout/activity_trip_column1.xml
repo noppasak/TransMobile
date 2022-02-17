@@ -3,16 +3,10 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/ColID"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:gravity="center"
-        android:text="LT."/>
+
 
     <TextView
-        android:id="@+id/ColFr"
+        android:id="@+id/ColRef"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3.4"
@@ -27,20 +21,24 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.1" />
 
-    <TextView
-        android:id="@+id/ColTo"
-        android:layout_width="1dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2.2"
-        android:text="Pending" />
-
-
 
     <Button
-        android:id="@+id/CmdComfirm"
+        android:id="@+id/cmdGW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_column="3"
         />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1" />
+
+    <Button
+        android:id="@+id/cmdMIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="4"
+        android:layout_weight="1" />
 
 </LinearLayout>

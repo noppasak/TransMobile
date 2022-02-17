@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.thnopp.it.trans.count.CountHeaderActivity;
+import com.thnopp.it.trans.retrofit.ScanRetrofitActivity;
+
 /**
  * Created by THLT88 on 10/20/2017.
  */
@@ -18,7 +21,7 @@ public class MenuActivity extends Activity {
 
     TextView lbltype, lbluser ;
 
-    Button scan, retrofit, logout, trip_p,upload,fuel,wi ;
+    Button scan, retrofit, logout, count,upload,fuel,wi ;
 
     DatabaseHelper db;
 
@@ -62,6 +65,15 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ScanRetrofitActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        count = (Button)findViewById(R.id.buttonCount);
+        count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CountHeaderActivity.class);
                 startActivity(intent);
             }
         });

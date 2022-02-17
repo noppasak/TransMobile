@@ -1,4 +1,4 @@
-package com.thnopp.it.trans;
+package com.thnopp.it.trans.retrofit;
 
 import android.Manifest;
 import android.app.Activity;
@@ -18,11 +18,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.interfaces.StringRequestListener;
+import com.thnopp.it.trans.Config;
+import com.thnopp.it.trans.DatabaseHelper;
+import com.thnopp.it.trans.Global;
+import com.thnopp.it.trans.MainActivity;
+import com.thnopp.it.trans.MenuActivity;
+import com.thnopp.it.trans.R;
+import com.thnopp.it.trans.RestService;
+import com.thnopp.it.trans.Scanvin;
 
 import java.util.List;
 
@@ -160,6 +167,20 @@ public class ScanRetrofitActivity extends Activity {
 
             }
         });
+
+        if (getIntent().getStringExtra("data") != null) {
+            dealer.setText(getIntent().getStringExtra("data"));
+            if (dealer.getText().equals("")){
+                Toast.makeText(ScanRetrofitActivity.this, "VIN ไม่มีข้อมุล", Toast.LENGTH_LONG).show();
+            }else if ((!dealer.getText().equals("")) && (dealer.getText().length()!=17)){
+                Toast.makeText(ScanRetrofitActivity.this, "VIN ต้องมี 17 Digit", Toast.LENGTH_LONG).show();
+            }else{
+                status="OK";
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                getData();
+            }
+        }
 
     }
 

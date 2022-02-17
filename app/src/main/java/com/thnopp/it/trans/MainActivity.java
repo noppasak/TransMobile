@@ -38,7 +38,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -108,8 +113,8 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                new MainActivity.GetLogin().execute();
-
+                //new MainActivity.GetLogin().execute();
+                getData_login();
             }
         });
 
@@ -280,111 +285,69 @@ public class MainActivity extends Activity {
     }
 
 
+    public void getData_login(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("email", "");
+            jsonObject.put("name", txtusr.getText().toString());
+            jsonObject.put("password", txtpaw.getText().toString());
+            jsonObject.put("fullName", "");
+            jsonObject.put("userstatus", "");
 
-    private class read_data extends AsyncTask<Void,Integer, String> {
-        @Override
-        protected void onPreExecute() {
 
-            super.onPreExecute();
-
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        @Override
-        protected String doInBackground(Void... params) {
-            return uploadProcess();
+        AndroidNetworking.post(Config.LOGIN_URL)
+                .addHeaders(Config.HEAD_KEY, Config.HEAD_VALUE)
+                .addJSONObjectBody(jsonObject) // posting json
+                .setTag("login")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // do anything with response
+                        boolean chk = false;
+                        JSONArray jsonarray = response;
+                        for (int i = 0; i < jsonarray.length(); i++) {
+                            chk=true;
+                            JSONObject jsonobject = null;
+                            try {
+                                jsonobject = jsonarray.getJSONObject(i);
+                                SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putString("username",txtusr.getText().toString().toUpperCase() );
+                                editor.putInt("client",Global.client);
+                                editor.putString("conf",Global.conf);
+                         //       param = txtusr.getText().toString();
 
-        }
-
-        @SuppressWarnings("deprecation")
-        private String uploadProcess() {
-            String responseString = null;
-            // add data to table via json
+                                editor.commit();
 
 
-            final String username = "CVL"+ txtusr.getText().toString();
-            final String userpassword = txtpaw.getText().toString();
 
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            break;
 
-            RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-            StringRequest request = new StringRequest(Request.Method.POST, Config.LOGIN_URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-
-                  //  Toast.makeText(MainActivity.this, "my success"+response, Toast.LENGTH_LONG).show();
-                    Log.i("My success", "" + response);
-
-                    JSONObject jsonObject;
-                    try {
-                        jsonObject = new JSONObject(response);
-                        String msgCode = jsonObject.getString("result");
-                        if (msgCode.equals("OK")) {
-
-                            Global.user = username;
-                            SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putString("username", username);
-                            editor.putInt("client",Global.client);
-                            editor.putString("conf",Global.conf);
-
-                            editor.commit();
-
+                        }
+                        if (chk==true){
                             Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                             startActivity(intent);
-
-                        } else {
-                            // display error
-                            Toast.makeText(MainActivity.this, "Login Error รหัส/password ผิด :" + msgCode, Toast.LENGTH_LONG).show();
-                            Log.i("My error", "" + msgCode);
-                            /*bar1.setVisibility(View.GONE);
-                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);*/
+                        } else{
+                            Toast.makeText(getBaseContext(),"User/Password ผิด...",Toast.LENGTH_LONG).show();
                         }
 
-                        // txtusr.setText(msgCode);
-                    } catch (JSONException e) {
-                       /* bar1.setVisibility(View.GONE);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);*/
-                    } catch (Exception e) {
-                       /* bar1.setVisibility(View.GONE);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);*/
+
                     }
-
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    bar1.setVisibility(View.GONE);
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(MainActivity.this, "my error :" + error, Toast.LENGTH_LONG).show();
-                    Log.i("My error", "" + error);
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String, String> map = new HashMap<String, String>();
-
-                    map.put("txtuser", username);
-                    map.put("txtpass", userpassword);
-                    map.put("clientcd", String.valueOf(Global.client).toString());
-
-
-                    return map;
-                }
-            };
-            queue.add(request);
-
-            return responseString;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Log.e(TAG, "Response from server: " + result);
-
-
-            super.onPostExecute(result);
-
-        }
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                        Toast.makeText(getBaseContext(),error.getErrorDetail(),Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 

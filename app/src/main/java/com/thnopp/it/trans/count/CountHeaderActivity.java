@@ -157,10 +157,9 @@ public class CountHeaderActivity extends Activity {
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.activity_trip_column1, null);
                 holder = new ViewHolder();
-                holder.txtID =(TextView) convertView.findViewById(R.id.ColID);
-                holder.txtCode = (TextView) convertView.findViewById(R.id.ColFr);
-                holder.txtTo = (TextView) convertView.findViewById(R.id.ColTo);
-                holder.cmdShared = (Button) convertView.findViewById(R.id.CmdComfirm);
+                holder.txtID =(TextView) convertView.findViewById(R.id.ColRef);
+                holder.cmdShared = (Button) convertView.findViewById(R.id.cmdGW);
+                holder.cmdMin = (Button) convertView.findViewById(R.id.cmdMIN);
 
                 convertView.setTag(holder);
             } else{
@@ -169,23 +168,19 @@ public class CountHeaderActivity extends Activity {
 
             // ColLT
 
-            holder.txtID.setText(MyArrList.get(position).get("ID"));
-            holder.txtID.setVisibility(View.GONE);
-            holder.txtCode.setText(MyArrList.get(position).get("REF"));
-            holder.txtTo.setVisibility(View.GONE);
+            holder.txtID.setText(MyArrList.get(position).get("REF"));
 
-            if (!holder.txtID.getText().equals("ID")){
-                holder.txtCode.setMaxLines(5);
-                holder.txtCode.setLines(5);
+            if (!holder.txtID.getText().equals("Reference")){
+
                 holder.cmdShared.setVisibility(View.VISIBLE);
-                holder.cmdShared.setText("นับ Stock");
-                holder.cmdShared.setBackgroundColor(Color.BLUE);
+                holder.cmdShared.setText("GW");
+                //holder.cmdShared.setBackgroundColor(Color.BLUE);
                 //cmdShared.setBackgroundColor(Color.TRANSPARENT);
                 holder.cmdShared.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         final AlertDialog.Builder adbd = new AlertDialog.Builder(CountHeaderActivity.this);
                         adbd.setTitle("ต้องการยืนยันหรือไม่?");
-                        adbd.setMessage("ยืนยันการนับรถ " + MyArrList.get(position).get("ID") + "\n" +
+                        adbd.setMessage("ยืนยันการนับรถที่ เกตเวย์ " + MyArrList.get(position).get("ID") + "\n" +
                                 MyArrList.get(position).get("REF") );
                         adbd.setNegativeButton("Cancel", null);
                         adbd.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
@@ -196,12 +191,13 @@ public class CountHeaderActivity extends Activity {
 
                                 SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs.edit();
-                                editor.putString("shipto", "");
-                                editor.putString("shipto_name", "");
-                                editor.putString("loading", MyArrList.get(position).get("Loading"));
-
+                                editor.putString("countat", "GV10");
+                                editor.putString("form", "count");
+                                editor.putString("hdid",  MyArrList.get(position).get("ID") );
                                 editor.commit();
 
+                                Intent intent = new Intent(getApplicationContext(), CountDetailActivity.class);
+                                startActivity(intent);
                                 //getData();
 
                             }
@@ -211,10 +207,48 @@ public class CountHeaderActivity extends Activity {
                     }
 
                 });
+
+                holder.cmdMin.setVisibility(View.VISIBLE);
+                holder.cmdMin.setText("MINBURI");
+                //holder.cmdMin.setBackgroundColor(Color.BLUE);
+                //cmdShared.setBackgroundColor(Color.TRANSPARENT);
+                holder.cmdMin.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        final AlertDialog.Builder adbd = new AlertDialog.Builder(CountHeaderActivity.this);
+                        adbd.setTitle("ต้องการยืนยันหรือไม่?");
+                        adbd.setMessage("ยืนยันการนับรถที่ มีนบุรี " + MyArrList.get(position).get("ID") + "\n" +
+                                MyArrList.get(position).get("REF") );
+                        adbd.setNegativeButton("Cancel", null);
+                        adbd.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int arg1) {
+                                //update and hide
+                                //check order
+                                HRef=MyArrList.get(position).get("ID");
+
+                                SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prefs.edit();
+                                editor.putString("countat", "MV10");
+                                editor.putString("form", "count");
+                                editor.putString("hdid",  MyArrList.get(position).get("ID") );
+
+                                editor.commit();
+
+                                Intent intent = new Intent(getApplicationContext(), CountDetailActivity.class);
+                                startActivity(intent);
+
+                            }
+                        });
+                        adbd.show();
+
+                    }
+
+                });
             }else{
-                holder.txtCode.setMaxLines(1);
-                holder.txtCode.setLines(1);
+                holder.txtID.setLines(1);
                 holder.cmdShared.setVisibility(View.INVISIBLE);
+                holder.cmdMin.setVisibility(View.INVISIBLE);
+
+
             }
 
             return convertView;
@@ -225,9 +259,8 @@ public class CountHeaderActivity extends Activity {
 
     public class ViewHolder{
         TextView txtID;
-        TextView txtCode;
-        TextView txtTo;
         Button cmdShared;
+        Button cmdMin;
 
     }
 
