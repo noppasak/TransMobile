@@ -118,6 +118,10 @@
             android:name="com.thnopp.it.trans.count.ChkVINCountResultActivity"
             android:screenOrientation="portrait"            >
         </activity>
+        <activity
+            android:name="com.thnopp.it.trans.count.ChkVINCountNewResultActivity"
+            android:screenOrientation="portrait"            >
+        </activity>
 
         <activity
             android:name="com.thnopp.it.trans.ScannedBarcodeActivity"

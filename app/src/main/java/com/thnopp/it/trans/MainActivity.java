@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
 
     RadioButton c1, c2;
 
-    private String AppVersion = "1.3 / 22 Nov 20";
+    private String AppVersion = "1.3.1 / 5 Mar 22";
 
 
 

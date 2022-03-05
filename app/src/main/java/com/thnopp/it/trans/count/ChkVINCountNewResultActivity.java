@@ -1,14 +1,9 @@
 package com.thnopp.it.trans.count;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,32 +14,20 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.StringRequestListener;
-import com.thnopp.it.trans.ChkDealerActivity;
-import com.thnopp.it.trans.ChkVINResult1Activity;
 import com.thnopp.it.trans.Config;
-import com.thnopp.it.trans.DatabaseHelper;
 import com.thnopp.it.trans.Global;
 import com.thnopp.it.trans.MainActivity;
 import com.thnopp.it.trans.R;
-import com.thnopp.it.trans.RestService;
-import com.thnopp.it.trans.Scanvin;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import google.zxing.integration.android.IntentIntegrator;
-import google.zxing.integration.android.IntentResult;
 
 
-public class ChkVINCountResultActivity extends Activity {
+public class ChkVINCountNewResultActivity extends Activity {
 
 
     TextView lblcount, lblmsg, lblparking, lbluser;
 
     Button back, next;
     EditText nparking, remark;
-
+    String vin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +42,7 @@ public class ChkVINCountResultActivity extends Activity {
         String detid = prefs.getString("detid","");
         String rlocation = prefs.getString("rlocation","");
         String locatoin = prefs.getString("location","");
-        String vin = prefs.getString("vin","");
+        vin = prefs.getString("vin","");
         Global.user = username;
 
         lblcount  = (TextView) findViewById(R.id.lblcountat);
@@ -127,11 +110,14 @@ public class ChkVINCountResultActivity extends Activity {
 
         SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
         final String username = prefs.getString("username","");
-        final String detid = prefs.getString("detid","");
+        final String hdid = prefs.getString("hdid","");
+        final String countat = prefs.getString("countat","");
 
-        AndroidNetworking.post(Config.UPDATE_COUNT_VIN_URL)
+        AndroidNetworking.post(Config.UPDATE_COUNT_VIN_NEW_URL)
                 .addHeaders(Config.HEAD_KEY, Config.HEAD_VALUE)
-                .addBodyParameter("detid",detid)
+                .addBodyParameter("hdid",hdid)
+                .addBodyParameter("vin",vin)
+                .addBodyParameter("location",countat)
                 .addBodyParameter("nparking",newparking)
                 .addBodyParameter("remark",rem)
                 .addBodyParameter("user",username)

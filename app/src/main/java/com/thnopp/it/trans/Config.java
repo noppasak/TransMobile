@@ -18,6 +18,7 @@ public class Config {
     public static final String GET_COUNTHD_URL = "http://203.154.59.41:8080/cvl_trans/api/count/getcounthd";
     public static final String CHK_COUNT_VIN_URL = "http://203.154.59.41:8080/cvl_trans/api/count/chkvin";
     public static final String UPDATE_COUNT_VIN_URL = "http://203.154.59.41:8080/cvl_trans/api/count/confirmvin";
+    public static final String UPDATE_COUNT_VIN_NEW_URL = "http://203.154.59.41:8080/cvl_trans/api/count/confirmvin_new";
 
     // Directory name to store captured images and videos
     public static final String IMAGE_DIRECTORY_NAME = "Volvo Picture Upload";

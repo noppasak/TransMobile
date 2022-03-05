@@ -175,8 +175,18 @@ public class CountDetailActivity extends Activity {
                                 txtvin.setText(null);
                                 Toast.makeText(getBaseContext(), rlocation,Toast.LENGTH_LONG).show();
                             }else if (ref.equals("notfound")){
-                                txtvin.setText(null);
-                                Toast.makeText(getBaseContext(), rlocation,Toast.LENGTH_LONG).show();
+                                SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prefs.edit();
+
+                                editor.putString("ref", ref);
+
+                                editor.putString("rlocation", "ไม่มี VIN ในระบบต้องการ Confirm Count หรือไม่");
+                                editor.putString("location", location);
+                                editor.putString("vin", vin);
+                                startActivity(new Intent(CountDetailActivity.this, ChkVINCountNewResultActivity.class).putExtra("data", vin));
+                                editor.commit();
+
+
                             }
 
                         } catch (JSONException e) {
