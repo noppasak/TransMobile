@@ -170,7 +170,7 @@ public class CountHeaderActivity extends Activity {
 
             holder.txtID.setText(MyArrList.get(position).get("REF"));
 
-            if (!holder.txtID.getText().equals("Reference")){
+            if (!holder.txtID.getText().equals("เลขที่อ้างอิง")){
 
                 holder.cmdShared.setVisibility(View.VISIBLE);
                 holder.cmdShared.setText("GW");
@@ -197,6 +197,7 @@ public class CountHeaderActivity extends Activity {
                                 editor.commit();
 
                                 Intent intent = new Intent(getApplicationContext(), CountDetailActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 //getData();
 
@@ -234,6 +235,7 @@ public class CountHeaderActivity extends Activity {
                                 editor.commit();
 
                                 Intent intent = new Intent(getApplicationContext(), CountDetailActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 
                             }
@@ -294,8 +296,8 @@ public class CountHeaderActivity extends Activity {
                             map = new HashMap<String, String>();
 
                             map.put("ID", "ID");
-                            map.put("REF", "Reference");
-                            map.put("CountDate", "Date");
+                            map.put("REF", "เลขที่อ้างอิง");
+                            map.put("CountDate", "วันที่");
 
 
 

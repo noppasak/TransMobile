@@ -55,8 +55,8 @@ public class ChkVINCountNewResultActivity extends Activity {
         back = (Button) findViewById(R.id.buttonBack);
         next = (Button) findViewById(R.id.buttonNext);
 
-        lbluser.setText("Count by" + username);
-        lblcount.setText("Count at" + countat);
+        lbluser.setText("นับโดย " + username);
+        lblcount.setText("นับที่ " + countat);
         lblparking.setText(locatoin);
         lblmsg.setText(rlocation);
 
@@ -89,8 +89,8 @@ public class ChkVINCountNewResultActivity extends Activity {
 
                     Toast.makeText(getBaseContext(),"ต้องใส่ Parking ด้วย",Toast.LENGTH_LONG).show();
                 }else{
-                    if (nparking.getText().toString().length()>5){
-                        Toast.makeText(getBaseContext(),"Parking ต้องมี 5 digit",Toast.LENGTH_LONG).show();
+                    if (nparking.getText().toString().length()!=5){
+                        Toast.makeText(getBaseContext(),"Parking ต้องมี 5 digit เท่านั้น",Toast.LENGTH_LONG).show();
                     }else{
                         getDate_Count(nparking.getText().toString(), remark.getText().toString());
                     }

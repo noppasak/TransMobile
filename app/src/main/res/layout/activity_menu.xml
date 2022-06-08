@@ -48,7 +48,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
         android:layout_marginTop="21dp"
-        android:text="MP Count Menu" />
+        android:text="นับสต๊อกรถ Menu" />
 
 
 

@@ -335,6 +335,7 @@ public class MainActivity extends Activity {
                         }
                         if (chk==true){
                             Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         } else{
                             Toast.makeText(getBaseContext(),"User/Password ผิด...",Toast.LENGTH_LONG).show();

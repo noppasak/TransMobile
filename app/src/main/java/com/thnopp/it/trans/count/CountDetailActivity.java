@@ -84,6 +84,7 @@ public class CountDetailActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ScannedBarcodeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -108,6 +109,7 @@ public class CountDetailActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), CountHeaderActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -183,7 +185,7 @@ public class CountDetailActivity extends Activity {
                                 editor.putString("rlocation", "ไม่มี VIN ในระบบต้องการ Confirm Count หรือไม่");
                                 editor.putString("location", location);
                                 editor.putString("vin", vin);
-                                startActivity(new Intent(CountDetailActivity.this, ChkVINCountNewResultActivity.class).putExtra("data", vin));
+                                startActivity(new Intent(CountDetailActivity.this, ChkVINCountResultActivity.class).putExtra("data", vin));
                                 editor.commit();
 
 

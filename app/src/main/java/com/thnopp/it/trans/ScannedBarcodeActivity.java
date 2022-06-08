@@ -28,7 +28,9 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.thnopp.it.trans.count.ChkVINCountNewResultActivity;
 import com.thnopp.it.trans.count.ChkVINCountResultActivity;
+import com.thnopp.it.trans.count.CountDetailActivity;
 import com.thnopp.it.trans.count.CountHeaderActivity;
 import com.thnopp.it.trans.retrofit.ScanRetrofitActivity;
 
@@ -206,6 +208,18 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                                 intentData = barcodes.valueAt(0).displayValue;
                                 txtBarcodeValue.setText(intentData);
 
+
+                                if (intentData.length() == 17) {
+                                    SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+                                    String form = prefs.getString("form","");
+
+                                     if (form.equals("count")) {
+                                         getDate_ChkVIN(intentData);
+
+                                    }
+                                }
+
+
                             }
                         }
                     });
@@ -280,7 +294,7 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         final String username = prefs.getString("username","");
         final String countat = prefs.getString("countat","");
         final String hdid = prefs.getString("hdid","");
-
+        final String t_vin = vin;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmm");
         final String t_time = sdf.format(new Date());
 
@@ -328,7 +342,16 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                             }else if (ref.equals("scaned")){
                                 Toast.makeText(getBaseContext(), rlocation,Toast.LENGTH_LONG).show();
                             }else if (ref.equals("notfound")){
-                                Toast.makeText(getBaseContext(), rlocation,Toast.LENGTH_LONG).show();
+                                SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = prefs.edit();
+
+                                editor.putString("ref", ref);
+
+                                editor.putString("rlocation", "ไม่มี VIN ในระบบต้องการ Confirm Count หรือไม่");
+                                editor.putString("location", location);
+                                editor.putString("vin", intentData);
+                                startActivity(new Intent(ScannedBarcodeActivity.this, ChkVINCountResultActivity.class).putExtra("data", intentData));
+                                editor.commit();
                             }
 
                         } catch (JSONException e) {
