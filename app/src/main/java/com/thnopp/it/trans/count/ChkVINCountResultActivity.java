@@ -27,6 +27,7 @@ import com.thnopp.it.trans.Global;
 import com.thnopp.it.trans.MainActivity;
 import com.thnopp.it.trans.R;
 import com.thnopp.it.trans.RestService;
+import com.thnopp.it.trans.ScannedBarcodeActivity;
 import com.thnopp.it.trans.Scanvin;
 
 import java.text.SimpleDateFormat;
@@ -152,7 +153,7 @@ public class ChkVINCountResultActivity extends Activity {
 
                         if (response.equals("ok")){
                             Toast.makeText(getBaseContext(),"Update Count Complete..." + response,Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), CountDetailActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), ScannedBarcodeActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }else{

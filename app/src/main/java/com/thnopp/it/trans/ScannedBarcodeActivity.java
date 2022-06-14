@@ -74,7 +74,10 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
         btnAction = findViewById(R.id.btnAction);
         btnFlash = findViewById(R.id.btnFlash);
 
-
+        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        String form = prefs.getString("form","");
+        if (form.equals("count"))
+            btnAction.setText("ย้อนกลับ");
 
         btnFlash.setOnClickListener(new View.OnClickListener() {
                                         @Override
@@ -113,19 +116,24 @@ public class ScannedBarcodeActivity extends AppCompatActivity {
                 String form = prefs.getString("form","");
 
                 if (form.equals("retrofit")){
-                    if ((intentData.length() == 17) || (intentData.length() == 6)) {
-                        Toast.makeText(getBaseContext(),"รหัสรถ,เครื่องจะต้องมี 17 , 6 หลัก",Toast.LENGTH_LONG).show();
+                    if ((intentData.length() == 17) ) {
+                        Toast.makeText(getBaseContext(),"รหัสรถ,เครื่องจะต้องมี 17  หลัก",Toast.LENGTH_LONG).show();
                     }else{
                         getDate_ChkVIN(intentData);
                         //startActivity(new Intent(ScannedBarcodeActivity.this, ScanRetrofitActivity.class).putExtra("data", intentData));
                     }
                 }else   if (form.equals("count")) {
-                    if ((intentData.length() == 17) || (intentData.length() == 6)) {
+                    Intent intent = new Intent(getApplicationContext(), CountDetailActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    /*if ((intentData.length() == 17) ) {
                         getDate_ChkVIN(intentData);
                         //startActivity(new Intent(ScannedBarcodeActivity.this, ChkVINCountResultActivity.class).putExtra("data", intentData));
                     } else {
-                        Toast.makeText(getBaseContext(), "รหัสรถ,เครื่องจะต้องมี 17 , 6 หลัก", Toast.LENGTH_LONG).show();
-                    }
+                        Toast.makeText(getBaseContext(), "รหัสรถ,เครื่องจะต้องมี 17 หลัก", Toast.LENGTH_LONG).show();
+                    }*/
+                }else   if (form.equals("count")) {
+
                 }
 
 

@@ -92,11 +92,11 @@ public class CountDetailActivity extends Activity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ((txtvin.length() == 17) || (txtvin.length() == 6)) {
+                if ((txtvin.length() == 17)) {
                     txtvin.setText(txtvin.getText().toString().toUpperCase());
                     getDate_ChkVIN(txtvin.getText().toString());
                 }else{
-                    txtvin.setText(null);
+                    //txtvin.setText(null);
                     Toast.makeText(getBaseContext(), "VIN ไม่ถูกต้อง !!!",Toast.LENGTH_LONG).show();
                 }
 
