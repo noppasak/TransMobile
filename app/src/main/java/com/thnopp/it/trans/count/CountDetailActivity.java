@@ -46,7 +46,7 @@ import java.util.HashMap;
 public class CountDetailActivity extends Activity {
 
     TextView lblcount, lbluser;
-    Button scan, next, back;
+    Button scan, next, back, capture;
     EditText txtvin;
     DatabaseHelper db;
 
@@ -79,6 +79,16 @@ public class CountDetailActivity extends Activity {
         scan = (Button) findViewById(R.id.buttonScan);
         next = (Button) findViewById(R.id.buttonNext);
         back = (Button) findViewById(R.id.buttonBack);
+        capture = (Button) findViewById(R.id.buttonCapture);
+
+        capture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), CaptureVINActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override

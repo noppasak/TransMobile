@@ -41,4 +41,5 @@ dependencies {
     implementation 'com.mindorks.android:prdownloader:0.6.0'
     implementation 'org.apache.commons:commons-lang3:3.7'
     implementation 'com.google.android.gms:play-services-vision:20.1.3'
+
 }

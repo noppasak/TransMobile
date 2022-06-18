@@ -38,6 +38,16 @@
         android:text="สแกน Barcode " />
 
 
+    <Button
+        android:id="@+id/buttonCapture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="11dp"
+        android:text="ถ่ายรูป VIN" />
+
     <EditText
         android:id="@+id/txtvin"
         android:layout_width="match_parent"
