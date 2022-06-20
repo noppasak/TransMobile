@@ -94,7 +94,7 @@ public class CaptureVINActivity extends Activity {
 
     EditText txtMile;
 
-    private Button btnCapturePicture, btnRecordVideo,btnComplete;
+    private Button btnCapturePicture, btnBack,btnComplete;
     String Hdelid,HRef;
     String frmdo, frmtype,frmmsg,form,mile_type;
     ImageView img;
@@ -121,6 +121,7 @@ public class CaptureVINActivity extends Activity {
         lbldealer = (TextView)findViewById(R.id.lbldealer_name);
         lblvin = (TextView)findViewById(R.id.lblvin);
         btnCapturePicture = (Button) findViewById(R.id.btnCap);
+        btnBack = (Button) findViewById(R.id.btnBack);
 
         lblvin.setVisibility(View.GONE);
         lbldealer.setText("นับที่ " + countat);
@@ -141,6 +142,22 @@ public class CaptureVINActivity extends Activity {
         {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
         }
+
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Global.filePath!=null){
+                    File file = new File(Global.filePath);
+                    boolean deleted = file.delete();
+                }
+
+                Intent intent = new Intent(getApplicationContext(), CountDetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+            }
+        });
 
         if (Global.user == null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

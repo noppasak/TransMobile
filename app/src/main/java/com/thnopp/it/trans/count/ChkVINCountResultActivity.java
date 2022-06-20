@@ -40,7 +40,7 @@ import google.zxing.integration.android.IntentResult;
 
 public class ChkVINCountResultActivity extends Activity {
 
-
+    String form_scan;
     TextView lblcount, lblmsg, lblparking, lbluser;
 
     Button back, next;
@@ -61,6 +61,7 @@ public class ChkVINCountResultActivity extends Activity {
         String rlocation = prefs.getString("rlocation","");
         String locatoin = prefs.getString("location","");
         String vin = prefs.getString("vin","");
+        form_scan = prefs.getString("form_scan","");
         Global.user = username;
 
         lblcount  = (TextView) findViewById(R.id.lblcountat);
@@ -136,6 +137,8 @@ public class ChkVINCountResultActivity extends Activity {
         final String vin = prefs.getString("vin","");
         final String countat = prefs.getString("countat","");
 
+        final String form = prefs.getString("countat","");
+
         AndroidNetworking.post(Config.UPDATE_COUNT_VIN_NEW_URL)
                 .addHeaders(Config.HEAD_KEY, Config.HEAD_VALUE)
                 .addBodyParameter("hdid",hdid)
@@ -153,9 +156,16 @@ public class ChkVINCountResultActivity extends Activity {
 
                         if (response.equals("ok")){
                             Toast.makeText(getBaseContext(),"Update Count Complete..." + response,Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), ScannedBarcodeActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            if (form_scan.equals("barcode")){
+                                Intent intent = new Intent(getApplicationContext(), ScannedBarcodeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }else{
+                                Intent intent = new Intent(getApplicationContext(), CaptureVINActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+
                         }else{
                             Toast.makeText(getBaseContext(),"Update Count Error..." + response,Toast.LENGTH_LONG).show();
                         }

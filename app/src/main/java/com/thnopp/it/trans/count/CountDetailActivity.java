@@ -84,6 +84,10 @@ public class CountDetailActivity extends Activity {
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("form_scan", "capture");
+                editor.commit();
                 Intent intent = new Intent(getApplicationContext(), CaptureVINActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
@@ -93,6 +97,11 @@ public class CountDetailActivity extends Activity {
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("form_scan", "barcode");
+                editor.commit();
+
                 Intent intent = new Intent(getApplicationContext(), ScannedBarcodeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
