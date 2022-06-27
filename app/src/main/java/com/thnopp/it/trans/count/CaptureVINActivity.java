@@ -440,8 +440,13 @@ public class CaptureVINActivity extends Activity {
             String[] data  = stringImageText.split(" ");
             for (String s: data){
                 if (s.length()==17){
+
                     if (s.substring(0,2).equals("MP")){
                         s = s.replace("O","0");
+                        res = s;
+                        break;
+                    }else if (s.substring(0,2).equals("NP")){
+                        s = "MP" + s.substring(2,17);
                         res = s;
                         break;
                     }
