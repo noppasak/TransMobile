@@ -69,7 +69,7 @@ import static android.content.ContentValues.TAG;
 
 public class CaptureVINActivity extends Activity {
 
-    private TextView lblvin, lbldealer, lblCap;
+    private TextView lblvin, lbldealer, lblCap, lbldata;
 
     private Uri mImageCaptureUri;
     ProgressBar bar1;
@@ -118,6 +118,7 @@ public class CaptureVINActivity extends Activity {
         String locatoin = prefs.getString("location","");
 
         lblCap = (TextView)findViewById(R.id.txtCap);
+        lbldata = (TextView)findViewById(R.id.lbldata);
         lbldealer = (TextView)findViewById(R.id.lbldealer_name);
         lblvin = (TextView)findViewById(R.id.lblvin);
         btnCapturePicture = (Button) findViewById(R.id.btnCap);
@@ -130,7 +131,7 @@ public class CaptureVINActivity extends Activity {
         img = (ImageView) findViewById(R.id.img1);
 
         txtMile = (EditText)findViewById(R.id.txtmile);
-
+        lbldata.setVisibility(View.GONE);
 
 
         lblCap.setText("ถ่ายรุป Plate VIN");
@@ -177,10 +178,6 @@ public class CaptureVINActivity extends Activity {
 
                     // capture picture
                     captureImage();
-
-
-
-
 
                 }
             });
@@ -381,10 +378,21 @@ public class CaptureVINActivity extends Activity {
 
 
         if (!res.equals("")){
-            File file = new File(Global.filePath);
-            boolean deleted = file.delete();
+            if (res.length()==17){
+                File file = new File(Global.filePath);
+                boolean deleted = file.delete();
+                lbldata.setVisibility(View.GONE);
 
-            getDate_ChkVIN(res);
+                getDate_ChkVIN(res);
+
+            }else{
+                lbldata.setVisibility(View.VISIBLE);
+                lbldata.setText("data = " + res);
+            }
+
+        }else{
+            lbldata.setVisibility(View.VISIBLE);
+            lbldata.setText("data = " + res);
         }
 
 
@@ -421,37 +429,48 @@ public class CaptureVINActivity extends Activity {
         String res = "";
         try {
             String stringFileName = filepath;
-            bitmap = BitmapFactory.decodeFile(stringFileName);
-            img.setImageBitmap(bitmap);
+            Bitmap b = BitmapFactory.decodeFile(stringFileName);
+            img.setImageBitmap(b);
             img.setVisibility(View.VISIBLE);
+
             TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
-            Frame frameImage = new Frame.Builder().setBitmap(bitmap).build();
+            Frame frameImage = new Frame.Builder().setBitmap(b).build();
 
-
-
-            SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frameImage);
             String stringImageText = "";
-            for (int i = 0; i<textBlockSparseArray.size();i++){
-                TextBlock textBlock = textBlockSparseArray.get(textBlockSparseArray.keyAt(i));
 
-                stringImageText = stringImageText + " " + textBlock.getValue();
-            }
-            //get data
-            String[] data  = stringImageText.split(" ");
-            for (String s: data){
-                if (s.length()==17){
+            if(!textRecognizer.isOperational()) {
+                Log.d(TAG, "TextRecognizer is not operational: ");
+                Toast.makeText(getBaseContext(),"TextRecognizer is not operational. Please install Play store.",Toast.LENGTH_LONG).show();
+                textRecognizer.release();
+            }else{
+                SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(frameImage);
 
-                    if (s.substring(0,2).equals("MP")){
-                        s = s.replace("O","0");
-                        res = s;
-                        break;
-                    }else if (s.substring(0,2).equals("NP")){
-                        s = "MP" + s.substring(2,17);
-                        res = s;
-                        break;
+                for (int i = 0; i<textBlockSparseArray.size();i++){
+                    TextBlock textBlock = textBlockSparseArray.get(textBlockSparseArray.keyAt(i));
+
+                    stringImageText = stringImageText + " " + textBlock.getValue();
+                }
+                //get data
+                String[] data  = stringImageText.split(" ");
+                for (String s: data){
+                    if (s.length()==17){
+
+                        if (s.substring(0,2).equals("MP")){
+                            s = s.replace("O","0");
+                            res = s;
+                            break;
+                        }else if (s.substring(0,2).equals("NP")){
+                            s = "MP" + s.substring(2,17);
+                            res = s;
+                            break;
+                        }
                     }
                 }
+                if (res.equals("")){
+                    res = stringImageText;
+                }
             }
+
 
         }
         catch (Exception e){

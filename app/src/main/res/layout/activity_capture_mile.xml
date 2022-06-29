@@ -50,7 +50,11 @@
             android:ems="10"
             android:hint="กรอกเลขไมล์รถ"
             android:inputType="number" />
-
+        <TextView
+            android:id="@+id/lbldata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
 
         <ProgressBar
@@ -88,5 +92,10 @@
             android:focusableInTouchMode="true"
 
             />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05" />
+
     </LinearLayout>
 </ScrollView>
